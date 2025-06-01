@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+
+import type { Request, Response } from 'express';
 import express from 'express';
 import bcrypt from 'bcrypt';
 
@@ -56,6 +58,22 @@ router.post('/', async (req, res) => {
 });
 
 router.use(verifyJWT);
+
+// GET /users/me - dane aktualnie zalogowanego użytkownika
+router.get('/me', async (req, res) => {
+    if (!req.user || typeof req.user.id !== 'number') {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    try {
+        const user = await User.findByPk(req.user.id, {
+            attributes: ['id', 'email', 'role', 'createdAt', 'updatedAt'],
+        });
+        if (!user) return res.status(404).json({ error: 'User not found' });
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: err instanceof Error ? err.message : 'Unknown error' });
+    }
+});
 // READ ALL
 router.get('/', async (req, res) => {
     try {
