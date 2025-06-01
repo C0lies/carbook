@@ -4,13 +4,15 @@ import cors from 'cors';
 import express from 'express'; // ErrorRequestHandler
 
 import { config } from './config';
+import corsOptions from './corsOptions';
+import { sequelize } from './db';
 import { setupLogging } from './logging';
 
 import { router } from 'routes/router';
 
 export const app = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(
     express.urlencoded({
@@ -64,4 +66,13 @@ export const server = app.listen(config.port, () => {
     console.log(
         `Server running on port ${config.port.toString()} in ${config.env} environment`,
     );
+    sequelize
+        .authenticate()
+        .then(() => {
+            console.log('Połączono z bazą danych!');
+        })
+        // eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
+        .catch((error) => {
+            console.error('Błąd połączenia z bazą danych:', error);
+        });
 });

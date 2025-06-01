@@ -22,3 +22,6 @@ temp.*
 
 # Logs
 logs/
+
+# Uploads
+uploads/
