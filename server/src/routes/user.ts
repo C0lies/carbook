@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 
+import bcrypt from 'bcrypt';
 import type { Request, Response } from 'express';
 import express from 'express';
-import bcrypt from 'bcrypt';
 
 import verifyJWT from '../middleware/verifyJWT';
 import { User } from '../models';

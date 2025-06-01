@@ -1,6 +1,7 @@
 import storage from './storage';
 
-const API_URL = 'http://localhost:4000/api';
+const API_URL = 'http://192.168.0.178:4000/api';
+// const API_URL = 'http://localhost:4000/api';
 
 let accessToken: string | null = null;
 
@@ -14,7 +15,7 @@ export async function login(email: string, password: string) {
     const data = await res.json();
     if (res.ok && data.accessToken) {
         accessToken = data.accessToken;
-        await storage.setItem('accessToken', accessToken);
+        await storage.setItem('accessToken', accessToken ?? '');
         return true;
     }
     throw new Error(data.message || 'Login failed');
@@ -37,7 +38,7 @@ export async function refreshToken() {
     const data = await res.json();
     if (res.ok && data.accessToken) {
         accessToken = data.accessToken;
-        await storage.setItem('accessToken', accessToken);
+        await storage.setItem('accessToken', accessToken ?? '');
         return true;
     }
     throw new Error('Refresh failed');

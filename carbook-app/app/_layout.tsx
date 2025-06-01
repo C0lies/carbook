@@ -21,8 +21,10 @@ export default function RootLayout() {
       <AuthProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="LoginScreen" options={{ headerShown: false }} />
-          <Stack.Screen name="MainScreen" options={{ headerShown: false }} />
+          <Stack.Screen name="login" options={{ headerShown: false }} />
+          <Stack.Screen name="home" options={{ headerShown: false }} />
+          <Stack.Screen name="_profile" options={{ headerShown: false }} />
+          <Stack.Screen name="_vehicles" options={{ headerShown: false }} />
         </Stack>
       </AuthProvider>
       <StatusBar style="auto" />

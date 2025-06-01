@@ -29,7 +29,7 @@ export default function MainScreen() {
         if (!loading && !user) {
             router.replace('/');
         }
-    }, [user, loading]);
+    }, [user, loading, router]);
 
     const fetchVehicles = async () => {
         setLoadingVehicles(true);
@@ -73,10 +73,27 @@ export default function MainScreen() {
         }
     };
 
+    // Funkcja do obsługi kliknięcia w szczegóły pojazdu
+    const handleVehicleDetails = (vehicle: Vehicle) => {
+        router.push({
+            pathname: '/vehicle-details',
+            params: {
+                vehicleId: vehicle.id.toString(),
+                vehicleData: JSON.stringify(vehicle)
+            }
+        });
+    };
+
+    // Funkcja do obsługi kliknięcia w całą kartę pojazdu
+    const handleVehiclePress = (vehicle: Vehicle) => {
+        handleVehicleDetails(vehicle);
+    };
+
     const renderVehicleItem = ({ item, index }: { item: Vehicle; index: number }) => (
         <TouchableOpacity
             style={[styles.vehicleCard, { marginTop: index === 0 ? 0 : 16 }]}
             activeOpacity={0.8}
+            onPress={() => handleVehiclePress(item)}
         >
             <LinearGradient
                 colors={['#ffffff', '#f8f9ff']}
@@ -137,7 +154,10 @@ export default function MainScreen() {
                 </View>
 
                 <View style={styles.cardFooter}>
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity
+                        style={styles.actionButton}
+                        onPress={() => handleVehicleDetails(item)}
+                    >
                         <Icon name="more-horiz" size={20} color="#667eea" />
                         <Text style={styles.actionButtonText}>Szczegóły</Text>
                     </TouchableOpacity>

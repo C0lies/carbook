@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, ScrollView, KeyboardAvoidingView, Platform, TextInput as RNTextInput } from 'react-native';
-import { TextInput, Button, ActivityIndicator, Text, useTheme, Provider as PaperProvider, Card, IconButton, MD3LightTheme } from 'react-native-paper';
+import { Button, ActivityIndicator, Text, Provider as PaperProvider, Card, MD3LightTheme } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '../lib/authContext';
 import { useRouter } from 'expo-router';
@@ -73,7 +73,7 @@ export default function LoginScreen() {
                             </View>
                         </View>
 
-                        <Card style={[styles.card, { backgroundColor: theme.colors.surface }]} elevation={8}>
+                        <Card style={[styles.card, { backgroundColor: theme.colors.surface }]} elevation={4}>
                             <Card.Content style={styles.cardContent}>
                                 <Text variant="headlineMedium" style={[styles.title, { color: theme.colors.onSurface }]}>
                                     Witaj ponownie!
